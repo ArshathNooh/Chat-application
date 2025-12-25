@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-card">
+                <h1 class="app-title">💬 Chat App</h1>
+                <p class="app-subtitle">Enter your username to start chatting</p>
+                <form id="loginForm">
+                    <input 
+                        type="text" 
+                        id="usernameInput" 
+                        placeholder="Username (2-20 characters)"
+                        autocomplete="off"
+                        maxlength="20"
+                        required
+                    >
+                    <div id="loginError" class="error-message"></div>
+                    <button type="submit" class="btn btn-primary">Join Chat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Screen -->
+    <div id="chatScreen" class="screen">
+        <!-- Sidebar (Desktop) -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chat Rooms</h2>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="room-actions">
+                    <button id="createRoomBtn" class="btn btn-secondary btn-small">
+                        ➕ Create Room
+                    </button>
+                </div>
+                
+                <div class="rooms-list">
+                    <h3>Available Rooms</h3>
+                    <ul id="roomsList"></ul>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-badge">
+                        <span>👤</span>
+                        <span id="currentUsername"></span>
+                    </div>
+                    <button id="logoutBtn" class="btn btn-danger btn-small">Logout</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+                    ☰
+                </button>
+                <div class="chat-title">
+                    <h2 id="currentRoomName">Select a room</h2>
+                    <span id="roomUserCount" class="user-count"></span>
+                </div>
+            </header>
+
+            <!-- Messages Container -->
+            <div id="messagesContainer" class="messages-container">
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">💬</div>
+                    <h3>Welcome to Chat!</h3>
+                    <p>Select a room from the sidebar to start chatting</p>
+                </div>
+                <div id="messagesList" class="messages-list"></div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Type a message..."
+                        autocomplete="off"
+                        maxlength="200"
+                        disabled
+                    >
+                    <button id="sendBtn" class="btn btn-primary btn-send" disabled>
+                        <span>Send</span>
+                        <span class="send-icon">➤</span>
+                    </button>
+                </div>
+                <div class="formatting-hint">
+                    <small>Format: **bold**, *italic*, or paste a link</small>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Room</h3>
+                <button class="modal-close" id="closeCreateRoomModal">&times;</button>
+            </div>
+            <form id="createRoomForm">
+                <input 
+                    type="text" 
+                    id="newRoomName" 
+                    placeholder="Room name (2-20 characters)"
+                    autocomplete="off"
+                    maxlength="20"
+                    required
+                >
+                <div id="createRoomError" class="error-message"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelCreateRoom">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
